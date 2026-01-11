@@ -1,30 +1,30 @@
-"use client"
+"use client";
 
-import type React from "react"
+import type React from "react";
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { signIn } from "@/lib/auth-client"
-import Link from "next/link"
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { signIn } from "@/lib/auth-client";
+import Link from "next/link";
 
 export default function LoginPage() {
-  const router = useRouter()
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState("")
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
   const [formData, setFormData] = useState({
     email: "",
     password: "",
-  })
+  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsLoading(true)
-    setError("")
+    e.preventDefault();
+    setIsLoading(true);
+    setError("");
 
     try {
       const response = await signIn.email(
@@ -34,47 +34,40 @@ export default function LoginPage() {
         },
         {
           onSuccess: () => {
-            router.push("/dashboard")
+            router.push("/dashboard");
           },
           onError: (ctx) => {
-            setError(ctx.error.message || "Login failed")
+            setError(ctx.error.message || "Login failed");
           },
-        },
-      )
+        }
+      );
     } catch (err) {
-      setError("An error occurred during login")
+      setError("An error occurred during login");
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   const handleGoogleLogin = async () => {
     try {
       await signIn.social({
         provider: "google",
         callbackURL: "/dashboard",
-      })
+      });
     } catch (err) {
-      setError("Google login failed")
+      setError("Google login failed");
     }
-  }
-
-  const handleGithubLogin = async () => {
-    try {
-      await signIn.social({
-        provider: "github",
-        callbackURL: "/dashboard",
-      })
-    } catch (err) {
-      setError("GitHub login failed")
-    }
-  }
+  };
 
   return (
     <div className="space-y-6">
       <div className="text-center">
-        <h1 className="text-3xl font-bold text-foreground mb-2">Welcome Back</h1>
-        <p className="text-muted-foreground">Sign in to your real estate account</p>
+        <h1 className="text-3xl font-bold text-foreground mb-2">
+          Welcome Back
+        </h1>
+        <p className="text-muted-foreground">
+          Sign in to your real estate account
+        </p>
       </div>
 
       {error && (
@@ -85,7 +78,10 @@ export default function LoginPage() {
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-foreground mb-2"
+          >
             Email Address
           </label>
           <input
@@ -101,7 +97,10 @@ export default function LoginPage() {
         </div>
 
         <div>
-          <label htmlFor="password" className="block text-sm font-medium text-foreground mb-2">
+          <label
+            htmlFor="password"
+            className="block text-sm font-medium text-foreground mb-2"
+          >
             Password
           </label>
           <input
@@ -130,7 +129,9 @@ export default function LoginPage() {
           <div className="w-full border-t border-border"></div>
         </div>
         <div className="relative flex justify-center text-sm">
-          <span className="px-2 bg-background text-muted-foreground">Or continue with</span>
+          <span className="px-2 bg-background text-muted-foreground">
+            Or continue with
+          </span>
         </div>
       </div>
 
@@ -142,21 +143,17 @@ export default function LoginPage() {
         >
           Google
         </button>
-        <button
-          onClick={handleGithubLogin}
-          type="button"
-          className="w-full border border-border hover:bg-muted rounded-lg py-2 px-4 font-medium text-foreground transition-smooth"
-        >
-          GitHub
-        </button>
       </div>
 
       <p className="text-center text-sm text-muted-foreground">
         Don't have an account?{" "}
-        <Link href="/signup" className="text-primary hover:underline font-medium">
+        <Link
+          href="/signup"
+          className="text-primary hover:underline font-medium"
+        >
           Sign up
         </Link>
       </p>
     </div>
-  )
+  );
 }

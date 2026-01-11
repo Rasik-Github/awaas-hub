@@ -1,0 +1,87 @@
+import { Permission } from "@/lib/rbac";
+import React from "react";
+
+import {
+  User,
+  Settings,
+  Home,
+  Heart,
+  Building2,
+  CalendarCheck,
+  Users,
+  BarChart3,
+} from "lucide-react";
+
+export type DashboardPage = {
+  title: string;
+  description: string;
+  href: string;
+  permission: Permission;
+  icons: React.ComponentType<{ className?: string }>;
+};
+
+export const DASHBOARD_PAGES: DashboardPage[] = [
+  {
+    title: "Dashboard",
+    description: "View dashboard page",
+    href: "/dashboard",
+    permission: Permission.VIEW_PROFILE,
+    icons: User,
+  },
+  {
+    title: "Profile",
+    description: "View and update your personal information",
+    href: "/users/profile",
+    permission: Permission.VIEW_PROFILE,
+    icons: User,
+  },
+  {
+    title: "Settings",
+    description: "Account preferences and security",
+    href: "/users/settings",
+    permission: Permission.MANAGE_SETTINGS,
+    icons: Settings,
+  },
+  {
+    title: "Properties",
+    description: "Browse available properties",
+    href: "/properties",
+    permission: Permission.VIEW_PROPERTIES,
+    icons: Home,
+  },
+  {
+    title: "Favorites",
+    description: "Your saved properties",
+    href: "/favorites",
+    permission: Permission.VIEW_FAVORITES,
+    icons: Heart,
+  },
+  {
+    title: "Manage Properties",
+    description: "Create and manage listings",
+    href: "/manage-properties",
+    permission: Permission.MANAGE_PROPERTIES,
+    icons: Building2,
+  },
+  {
+    title: "Appointments",
+    description: "Manage your appointments",
+    href: "/appointments",
+    permission: Permission.MANAGE_APPOINTMENTS,
+    icons: CalendarCheck,
+  },
+  {
+    title: "Users",
+    description: "Manage platform users",
+    href: "/users",
+    permission: Permission.MANAGE_USERS,
+    icons: Users,
+  },
+  {
+    title: "Analytics",
+    description: "Platform insights and metrics",
+    href: "/analytics",
+    permission: Permission.VIEW_ANALYTICS,
+    icons: BarChart3,
+  },
+];
