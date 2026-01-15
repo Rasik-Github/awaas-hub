@@ -1,11 +1,11 @@
-// app/(dashboard)/layout.tsx
 "use client";
 
 import { useSession } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import AppSidebar from "./_components/app-sidebar";
+import DashboardHeader from "./_components/dashboard-header";
 
 export default function DashboardLayout({
   children,
@@ -21,14 +21,16 @@ export default function DashboardLayout({
 
   if (isPending || !session) return null;
 
+  const onSearch = () => {
+    console.log("f")
+  }
+
   return (
     <SidebarProvider defaultOpen={true}>
-      {" "}
-      {/* or false */}
-      <div className="group flex min-h-screen">
+      <div className="flex h-screen w-full overflow-hidden">
         <AppSidebar session={session} />
-        <main className="flex-1 p-6 md:p-8 peer-data-[state=collapsed]:md:ml-[--sidebar-width-icon] peer-data-[state=expanded]:md:ml-[--sidebar-width]">
-          <SidebarTrigger className="mb-4" />
+        <main className=" w-full flex-1 overflow-hidden py-2 md:py-4 peer-data-[state=collapsed]:md:ml-[--sidebar-width-icon] peer-data-[state=expanded]:md:ml-[--sidebar-width]">
+          <DashboardHeader onSearch={onSearch} />
           {children}
         </main>
       </div>

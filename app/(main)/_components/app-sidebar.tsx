@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
-import { Role, hasPermission } from "@/lib/rbac";
 import { DASHBOARD_PAGES } from "./pages-permissions";
 
 import {
@@ -18,8 +17,13 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarTrigger,
   useSidebar,
 } from "@/components/ui/sidebar";
+import { hasPermission, Role } from "@/lib/rbac";
+import { NavUser } from "./nav-user";
+
+
 
 export default function AppSidebar({ session }: { session: any }) {
   const pathname = usePathname();
@@ -36,27 +40,44 @@ export default function AppSidebar({ session }: { session: any }) {
     <Sidebar collapsible="icon" className="border-r bg-sidebar">
       {/* Header */}
       <SidebarHeader className={cn("border-b", isCollapsed && "border-none")}>
-        <Link
-          href="/dashboard"
+        <div
           className={cn(
-            "flex items-center transition-all duration-200",
-            isCollapsed ? "justify-center p-3" : "gap-3 px-4 py-5"
+            "flex transition-all duration-200",
+            isCollapsed
+              ? "flex-col items-center gap-2 py-3"
+              : "flex-row items-center justify-between px-4 py-5"
           )}
         >
-          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground font-bold text-xl shadow-sm">
-            A
-          </div>
-
-          {!isCollapsed && (
-            <div className="flex flex-col leading-tight">
-              <span className="font-bold text-lg tracking-tight">AawasHub</span>
-              <span className="text-xs text-muted-foreground/80 capitalize mt-0.5">
-                {role}
-              </span>
+          {/* Logo / Brand */}
+          <Link
+            href="/dashboard"
+            className={cn(
+              "flex transition-all duration-200",
+              isCollapsed
+                ? "flex-col items-center gap-1"
+                : "flex-row items-center gap-3"
+            )}
+          >
+            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary text-primary-foreground font-bold text-xl shadow-sm">
+              A
             </div>
-          )}
-        </Link>
+
+            {/* Text only hidden when collapsed */}
+            {!isCollapsed && (
+              <div className="flex flex-col leading-tight">
+                <span className="font-bold text-lg tracking-tight">AawasHub</span>
+                <span className="text-xs text-muted-foreground/80 capitalize mt-0.5">
+                  {role}
+                </span>
+              </div>
+            )}
+          </Link>
+
+          {/* Collapse trigger */}
+          <SidebarTrigger />
+        </div>
       </SidebarHeader>
+
 
       {/* Navigation */}
       <SidebarContent>
@@ -115,11 +136,13 @@ export default function AppSidebar({ session }: { session: any }) {
 
       {/* Footer */}
       <SidebarFooter className="border-t mt-auto">
-        {!isCollapsed && (
+        <NavUser user={session?.user} />
+        
+        {/* {!isCollapsed && (
           <div className="px-4 py-4 text-xs text-muted-foreground/70">
             © {new Date().getFullYear()} AawasHub
           </div>
-        )}
+        )} */}
       </SidebarFooter>
     </Sidebar>
   );

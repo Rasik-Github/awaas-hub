@@ -10,8 +10,8 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.6 0.1 185);
-  --primary-foreground: oklch(0.98 0.01 181);
+  --primary: oklch(0.61 0.11 222);
+  --primary-foreground: oklch(0.98 0.02 201);
   --secondary: oklch(0.967 0.001 286.375);
   --secondary-foreground: oklch(0.21 0.006 285.885);
   --muted: oklch(0.97 0 0);
@@ -23,16 +23,16 @@
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.85 0.13 181);
-  --chart-2: oklch(0.78 0.13 182);
-  --chart-3: oklch(0.7 0.12 183);
-  --chart-4: oklch(0.6 0.1 185);
-  --chart-5: oklch(0.51 0.09 186);
+  --chart-1: oklch(0.87 0.12 207);
+  --chart-2: oklch(0.80 0.13 212);
+  --chart-3: oklch(0.71 0.13 215);
+  --chart-4: oklch(0.61 0.11 222);
+  --chart-5: oklch(0.52 0.09 223);
   --radius: 0.625rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.6 0.1 185);
-  --sidebar-primary-foreground: oklch(0.98 0.01 181);
+  --sidebar-primary: oklch(0.61 0.11 222);
+  --sidebar-primary-foreground: oklch(0.98 0.02 201);
   --sidebar-accent: oklch(0.97 0 0);
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
@@ -50,8 +50,8 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.7 0.12 183);
-  --primary-foreground: oklch(0.28 0.04 193);
+  --primary: oklch(0.71 0.13 215);
+  --primary-foreground: oklch(0.30 0.05 230);
   --secondary: oklch(0.274 0.006 286.033);
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.269 0 0);
@@ -63,15 +63,15 @@
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.85 0.13 181);
-  --chart-2: oklch(0.78 0.13 182);
-  --chart-3: oklch(0.7 0.12 183);
-  --chart-4: oklch(0.6 0.1 185);
-  --chart-5: oklch(0.51 0.09 186);
+  --chart-1: oklch(0.87 0.12 207);
+  --chart-2: oklch(0.80 0.13 212);
+  --chart-3: oklch(0.71 0.13 215);
+  --chart-4: oklch(0.61 0.11 222);
+  --chart-5: oklch(0.52 0.09 223);
   --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.78 0.13 182);
-  --sidebar-primary-foreground: oklch(0.28 0.04 193);
+  --sidebar-primary: oklch(0.80 0.13 212);
+  --sidebar-primary-foreground: oklch(0.30 0.05 230);
   --sidebar-accent: oklch(0.269 0 0);
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-width: 16rem;
@@ -128,9 +128,51 @@
   * {
     @apply border-border outline-ring/50;
     @apply border-border outline-ring/50;
+    @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
     @apply bg-background text-foreground;
+    @apply bg-background text-foreground;
   }
+}
+
+/* Add this to your globals.css file */
+
+/* Custom Scrollbar Styles */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--muted-foreground) / 0.3) transparent;
+}
+
+/* Webkit browsers (Chrome, Safari, Edge) */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: hsl(var(--muted-foreground) / 0.3);
+  border-radius: 4px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: hsl(var(--muted-foreground) / 0.5);
+}
+
+/* Optional: Even thinner scrollbar for specific containers */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.scrollbar-thin {
+  scrollbar-width: thin;
 }

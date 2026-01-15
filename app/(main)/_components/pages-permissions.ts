@@ -1,4 +1,4 @@
-import { Permission } from "@/lib/rbac";
+
 import React from "react";
 
 import {
@@ -10,7 +10,9 @@ import {
   CalendarCheck,
   Users,
   BarChart3,
+  LayoutDashboard,
 } from "lucide-react";
+import { Permission } from "@/lib/rbac";
 
 export type DashboardPage = {
   title: string;
@@ -26,15 +28,15 @@ export const DASHBOARD_PAGES: DashboardPage[] = [
     description: "View dashboard page",
     href: "/dashboard",
     permission: Permission.VIEW_PROFILE,
-    icons: User,
+    icons: LayoutDashboard,
   },
-  {
-    title: "Profile",
-    description: "View and update your personal information",
-    href: "/users/profile",
-    permission: Permission.VIEW_PROFILE,
-    icons: User,
-  },
+  // {
+  //   title: "Profile",
+  //   description: "View and update your personal information",
+  //   href: "/users/profile",
+  //   permission: Permission.VIEW_PROFILE,
+  //   icons: User,
+  // },
   {
     title: "Settings",
     description: "Account preferences and security",
